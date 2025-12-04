@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Users, TrendingUp, Target, Award, MapPin } from 'lucide-react';
 import { MOCK_DB } from '../utils/mockDb';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import "../index.css"
 
 const SalesModule: React.FC = () => {
   const [selectedRepId, setSelectedRepId] = useState<string>(MOCK_DB.reps[0].id);
@@ -20,7 +21,7 @@ const SalesModule: React.FC = () => {
           <p className="text-slate-500">Rep performance, customer tiers, and regional penetration.</p>
         </div>
         <div className="mt-4 md:mt-0">
-          <select 
+          <select
             value={selectedRepId}
             onChange={(e) => setSelectedRepId(e.target.value)}
             className="bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-[#003882] focus:border-[#003882] block w-full p-2.5 shadow-sm"
@@ -50,8 +51,8 @@ const SalesModule: React.FC = () => {
                <span>Target: {activeRep.targetMonthly.toLocaleString()}</span>
              </div>
              <div className="w-full bg-blue-900/30 rounded-full h-2">
-               <div 
-                 className="bg-[#facc15] h-2 rounded-full transition-all duration-1000" 
+               <div
+                 className="bg-[#facc15] h-2 rounded-full transition-all duration-1000"
                  style={{ width: `${Math.min((activeRep.actualMonthly / activeRep.targetMonthly) * 100, 100)}%` }}
                ></div>
              </div>
@@ -110,8 +111,8 @@ const SalesModule: React.FC = () => {
                     <td className="px-6 py-4">
                       <span className={`
                         inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold
-                        ${cust.tier === 'A' ? 'bg-[#003882]/10 text-[#003882]' : 
-                          cust.tier === 'B' ? 'bg-[#facc15]/20 text-yellow-800' : 
+                        ${cust.tier === 'A' ? 'bg-[#003882]/10 text-[#003882]' :
+                          cust.tier === 'B' ? 'bg-[#facc15]/20 text-yellow-800' :
                           'bg-slate-100 text-slate-600'}
                       `}>
                         {cust.tier}
@@ -132,7 +133,7 @@ const SalesModule: React.FC = () => {
         {/* Product Mix */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
            <h3 className="font-bold text-slate-800 mb-6">Penetration Strategy</h3>
-           
+
            <div className="space-y-6">
              <div>
                <div className="flex justify-between text-sm mb-2">

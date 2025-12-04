@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Factory, 
-  Package, 
-  Truck, 
-  BarChart3, 
-  Video, 
+import {
+  Factory,
+  Package,
+  Truck,
+  BarChart3,
+  Video,
   LayoutDashboard,
   Menu,
   X,
@@ -63,8 +63,8 @@ const Layout: React.FC<LayoutProps> = ({ children, activeModule, setActiveModule
               }}
               className={`
                 w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 group
-                ${activeModule === item.id 
-                  ? 'bg-[#d3122a] text-white shadow-md' 
+                ${activeModule === item.id
+                  ? 'bg-[#d3122a] text-white shadow-md'
                   : 'text-blue-200 hover:bg-blue-800 hover:text-white'}
               `}
             >
@@ -91,8 +91,8 @@ const Layout: React.FC<LayoutProps> = ({ children, activeModule, setActiveModule
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header */}
         <header className="bg-white shadow-sm h-16 flex items-center justify-between px-6 z-10 border-b border-slate-200">
-          <button 
-            onClick={() => setIsSidebarOpen(true)} 
+          <button
+            onClick={() => setIsSidebarOpen(true)}
             className="md:hidden text-[#003882] hover:text-[#d3122a]"
           >
             <Menu size={24} />

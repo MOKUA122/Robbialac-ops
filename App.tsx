@@ -7,6 +7,7 @@ import SalesModule from './modules/SalesModule';
 import VeoStudio from './modules/VeoStudio';
 import { LayoutDashboard, TrendingUp, AlertTriangle } from 'lucide-react';
 import { MOCK_DB } from './utils/mockDb';
+import "./index.css"
 
 const DashboardOverview: React.FC = () => {
   const stockAlerts = MOCK_DB.stock.filter(s => s.quantity < s.reorderLevel).length;
@@ -19,7 +20,7 @@ const DashboardOverview: React.FC = () => {
         <div className="relative z-10">
            <h1 className="text-3xl font-bold mb-2">Robbialac Ops Center</h1>
            <p className="text-teal-100 font-light">Pense Tinta, Pense Robbialac. Real-time visibility across Mozambique.</p>
-           
+
            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
               <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/10 hover:bg-white/20 transition-colors">
                 <p className="text-xs text-[#facc15] uppercase font-bold tracking-wider">Revenue (MTD)</p>
@@ -68,7 +69,7 @@ const DashboardOverview: React.FC = () => {
              ) : (
                 <p className="text-sm text-slate-500 italic">No critical exceptions.</p>
              )}
-             
+
              <div className="flex items-start pb-4 border-b border-slate-100 last:border-0">
                 <div className="bg-blue-50 text-[#003882] p-2 rounded-lg mr-3 shrink-0">
                    <TrendingUp size={16} />

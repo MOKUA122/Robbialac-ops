@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, CheckCircle, AlertTriangle, Printer, Search, ArrowRight, Activity, Package } from 'lucide-react';
 import { ProductionOrder } from '../types';
 import { PRODUCTS, MOCK_DB } from '../utils/mockDb';
+import "../index.css"
 
 const ProductionModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'create' | 'tracking'>('tracking');
@@ -15,14 +16,14 @@ const ProductionModule: React.FC = () => {
     const now = new Date();
     const yy = now.getFullYear().toString().slice(-2);
     const mm = (now.getMonth() + 1).toString().padStart(2, '0');
-    
+
     // Calculate week number (ISO week approx)
     const startDate = new Date(now.getFullYear(), 0, 1);
     const days = Math.floor((now.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
     const week = Math.ceil(days / 7).toString().padStart(2, '0');
-    
+
     const sequence = moId.slice(-5).padStart(5, '0');
-    
+
     return `${yy}${mm}WK${week}${sequence}`;
   };
 
@@ -30,7 +31,7 @@ const ProductionModule: React.FC = () => {
     const randomId = Math.floor(10000 + Math.random() * 90000).toString();
     const moNumber = `${new Date().getFullYear()}${randomId}.00`;
     const lotNumber = generateLotNumber(randomId);
-    
+
     const newOrder: ProductionOrder = {
       id: `PO-${Date.now().toString().slice(-6)}`,
       moNumber: moNumber,
@@ -86,11 +87,11 @@ const ProductionModule: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
             <h3 className="text-lg font-semibold mb-6">Create Production Order (PO)</h3>
-            
+
             <div className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Select Product</label>
-                <select 
+                <select
                   value={selectedProduct}
                   onChange={(e) => setSelectedProduct(e.target.value)}
                   className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#003882] outline-none"
@@ -103,8 +104,8 @@ const ProductionModule: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Planned Quantity (Units)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   value={plannedQty}
                   onChange={(e) => setPlannedQty(parseInt(e.target.value) || 0)}
                   className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#003882] outline-none"
@@ -128,7 +129,7 @@ const ProductionModule: React.FC = () => {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={handleCreateOrder}
                 className="w-full bg-[#003882] hover:bg-blue-800 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg shadow-blue-200"
               >
@@ -175,9 +176,9 @@ const ProductionModule: React.FC = () => {
               <h3 className="font-semibold text-slate-700">Active Production Batches</h3>
               <div className="relative w-full md:w-64">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
-                <input 
-                  type="text" 
-                  placeholder="Scan LOT or MO..." 
+                <input
+                  type="text"
+                  placeholder="Scan LOT or MO..."
                   className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-[#003882]"
                 />
               </div>

@@ -3,6 +3,7 @@ import { Truck, AlertTriangle, Package, MapPin, Scale, CalendarClock, ArrowRight
 import { StockLevel, Product, ProductionOrder } from '../types';
 import { MOCK_DB, PRODUCTS } from '../utils/mockDb';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from 'recharts';
+import "../index.css"
 
 const WarehouseModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'stocks' | 'inbound' | 'outbound'>('stocks');
@@ -20,7 +21,7 @@ const WarehouseModule: React.FC = () => {
     // Deficit = (ROL * 1.5) - Current Stock (Targeting 1.5x ROL for safety)
     const isCritical = stock.quantity < stock.safetyStock;
     const isLow = stock.quantity < stock.reorderLevel;
-    
+
     if (!isLow) return null;
 
     const targetLevel = Math.floor(stock.reorderLevel * 1.5);
@@ -68,7 +69,7 @@ const WarehouseModule: React.FC = () => {
   };
 
   const handleConfirmDelivery = (id: string) => {
-    setDispatchRecords(prev => prev.map(rec => 
+    setDispatchRecords(prev => prev.map(rec =>
       rec.id === id ? { ...rec, status: 'Delivered' } : rec
     ));
   };
@@ -211,7 +212,7 @@ const WarehouseModule: React.FC = () => {
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
              <div className="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
                <h3 className="font-semibold text-slate-800">Detailed Stock Ledger</h3>
-               <select 
+               <select
                   className="bg-white border border-slate-300 text-sm rounded-lg p-2"
                   value={selectedRegion}
                   onChange={(e) => setSelectedRegion(e.target.value)}
@@ -240,7 +241,7 @@ const WarehouseModule: React.FC = () => {
                       .map((stock, idx) => {
                      const product = PRODUCTS.find(p => p.id === stock.productId);
                      const isLow = stock.quantity < stock.reorderLevel;
-                     
+
                      return (
                        <tr key={idx} className="hover:bg-slate-50">
                          <td className="px-6 py-4 font-medium text-slate-900">{stock.region}</td>
@@ -313,7 +314,7 @@ const WarehouseModule: React.FC = () => {
                 {inboundOrders.map(order => {
                   const product = PRODUCTS.find(p => p.id === order.productId);
                   const isMatch = order.filledQty === order.warehouseReceivedQty;
-                  
+
                   return (
                     <tr key={order.id} className="hover:bg-slate-50 group">
                       <td className="px-6 py-4">
@@ -335,7 +336,7 @@ const WarehouseModule: React.FC = () => {
                          )}
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 rounded text-xs font-medium 
+                        <span className={`px-2 py-1 rounded text-xs font-medium
                           ${order.status === 'QC Pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}
                         `}>
                           {order.status}
@@ -369,7 +370,7 @@ const WarehouseModule: React.FC = () => {
 
       {activeTab === 'outbound' && (
         <div className="space-y-6">
-          
+
           {/* Section 1: Replenishment Needs (Existing Logic Enhanced) */}
           <div>
             <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center">
@@ -402,8 +403,8 @@ const WarehouseModule: React.FC = () => {
                             </span>
                           </div>
                           <div className="h-1.5 w-full bg-slate-200 rounded-full mb-3">
-                            <div 
-                              className={`h-1.5 rounded-full ${truck.weight > 29000 ? 'bg-[#d3122a]' : 'bg-green-500'}`} 
+                            <div
+                              className={`h-1.5 rounded-full ${truck.weight > 29000 ? 'bg-[#d3122a]' : 'bg-green-500'}`}
                               style={{ width: `${(truck.weight / 30000) * 100}%` }}
                             ></div>
                           </div>
@@ -450,8 +451,8 @@ const WarehouseModule: React.FC = () => {
                         <td className="px-6 py-3 font-medium">{rec.destination}</td>
                         <td className="px-6 py-3">
                           <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${
-                            rec.type === 'Customer Order' 
-                              ? 'bg-purple-50 text-purple-700 border-purple-200' 
+                            rec.type === 'Customer Order'
+                              ? 'bg-purple-50 text-purple-700 border-purple-200'
                               : 'bg-orange-50 text-orange-700 border-orange-200'
                           }`}>
                             {rec.type}
@@ -462,7 +463,7 @@ const WarehouseModule: React.FC = () => {
                         </td>
                         <td className="px-6 py-3">
                             {rec.status === 'Dispatched' && (
-                                <button 
+                                <button
                                     onClick={() => handleConfirmDelivery(rec.id)}
                                     className="text-green-600 hover:text-green-800 font-medium text-xs flex items-center bg-green-50 px-3 py-1.5 rounded-md transition-colors"
                                 >

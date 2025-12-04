@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  Factory, 
-  Package, 
-  Truck, 
-  BarChart3, 
-  Video, 
+import '../index.css';
+import {
+  Factory,
+  Package,
+  Truck,
+  BarChart3,
+  Video,
   LayoutDashboard,
   Menu,
   X,
@@ -33,8 +34,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, activeModule, setActive
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans text-slate-900">
       {/* Sidebar for Desktop - Robbialac Deep Blue #003882 */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-[#003882] text-white transform transition-transform duration-300 ease-in-out
-        md:relative md:translate-x-0
+        fixed inset-y-0 left-0 z-50 w-64 bg-[#003882] text-white transform transition-transform duration-300 ease-in-out md:relative
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex items-center justify-between p-6 border-b border-blue-800">
@@ -48,7 +48,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, activeModule, setActive
                <span className="block text-[10px] text-[#facc15] tracking-widest uppercase">Tintas Berger</span>
             </div>
           </div>
-          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden">
+          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden" aria-label="Close sidebar">
             <X size={24} />
           </button>
         </div>
@@ -63,8 +63,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, activeModule, setActive
               }}
               className={`
                 w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 group
-                ${activeModule === item.id 
-                  ? 'bg-[#d3122a] text-white shadow-md' 
+                ${activeModule === item.id
+                  ? 'bg-[#d3122a] text-white shadow-md'
                   : 'text-blue-200 hover:bg-blue-800 hover:text-white'}
               `}
             >
@@ -91,9 +91,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, activeModule, setActive
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header */}
         <header className="bg-white shadow-sm h-16 flex items-center justify-between px-6 z-10 border-b border-slate-200">
-          <button 
-            onClick={() => setIsSidebarOpen(true)} 
-            className="md:hidden text-[#003882] hover:text-[#d3122a]"
+          <button
+            onClick={() => setIsSidebarOpen(prev => !prev)}
+            className="text-[#003882] hover:text-[#d3122a]"
+            aria-label="Toggle sidebar"
+            aria-expanded={isSidebarOpen}
           >
             <Menu size={24} />
           </button>
