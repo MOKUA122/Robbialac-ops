@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Video, Upload, Play, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 import { generateVeoVideo } from '../services/geminiService';
+import "../index.css"
 
 const VeoStudio: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -18,11 +19,11 @@ const VeoStudio: React.FC = () => {
          setError("Image too large. Please select an image under 10MB.");
          return;
       }
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        // Strip the data URL prefix for the API calls later if needed, 
+        // Strip the data URL prefix for the API calls later if needed,
         // but for display we keep it. The API helper will handle stripping if necessary,
         // or we pass the base64 data block.
         // Google GenAI expects standard base64 without prefix usually, but let's store full string for display
@@ -36,7 +37,7 @@ const VeoStudio: React.FC = () => {
 
   const handleGenerate = async () => {
     if (!selectedImage) return;
-    
+
     setIsGenerating(true);
     setError(null);
     setVideoUrl(null);
@@ -44,7 +45,7 @@ const VeoStudio: React.FC = () => {
     try {
       // Extract base64 data part
       const base64Data = selectedImage.split(',')[1];
-      
+
       const generatedVideoUrl = await generateVeoVideo(base64Data, mimeType, prompt);
       setVideoUrl(generatedVideoUrl);
     } catch (err: any) {
@@ -67,7 +68,7 @@ const VeoStudio: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Input Section */}
         <div className="space-y-6">
-          <div 
+          <div
             className={`
               border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center transition-colors h-64
               ${selectedImage ? 'border-[#003882] bg-blue-50' : 'border-slate-300 hover:border-slate-400 bg-slate-50'}
@@ -81,7 +82,7 @@ const VeoStudio: React.FC = () => {
             {selectedImage ? (
               <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-lg">
                 <img src={selectedImage} alt="Preview" className="max-h-full max-w-full object-contain" />
-                <button 
+                <button
                   onClick={() => { setSelectedImage(null); setVideoUrl(null); }}
                   className="absolute top-2 right-2 bg-slate-900/50 hover:bg-slate-900 text-white p-1 rounded-full"
                 >
@@ -95,14 +96,14 @@ const VeoStudio: React.FC = () => {
                 </div>
                 <p className="text-sm font-medium text-slate-700">Click to upload product image</p>
                 <p className="text-xs text-slate-400 mt-1">PNG, JPG up to 10MB</p>
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   ref={fileInputRef}
                   onChange={handleImageUpload}
                   accept="image/*"
                   className="hidden"
                 />
-                <button 
+                <button
                   onClick={() => fileInputRef.current?.click()}
                   className="mt-4 px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50"
                 >
@@ -127,8 +128,8 @@ const VeoStudio: React.FC = () => {
             disabled={!selectedImage || isGenerating}
             className={`
               w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center transition-all
-              ${!selectedImage || isGenerating 
-                ? 'bg-slate-200 text-slate-400 cursor-not-allowed' 
+              ${!selectedImage || isGenerating
+                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
                 : 'bg-gradient-to-r from-[#003882] to-blue-700 text-white hover:shadow-lg transform hover:-translate-y-0.5'}
             `}
           >
@@ -144,7 +145,7 @@ const VeoStudio: React.FC = () => {
               </>
             )}
           </button>
-          
+
           {error && (
             <div className="p-4 bg-red-50 text-red-700 rounded-lg flex items-start text-sm">
               <AlertCircle className="w-5 h-5 mr-2 shrink-0" />
@@ -157,9 +158,9 @@ const VeoStudio: React.FC = () => {
         <div className="bg-[#002f6c] rounded-xl overflow-hidden flex flex-col h-full min-h-[400px]">
           <div className="flex-1 flex items-center justify-center p-8">
             {videoUrl ? (
-              <video 
-                src={videoUrl} 
-                controls 
+              <video
+                src={videoUrl}
+                controls
                 className="w-full rounded-lg shadow-2xl"
                 autoPlay
                 loop
